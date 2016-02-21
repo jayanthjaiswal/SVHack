@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/util
+ http://www.springframework.org/schema/util/spring-util-2.0.xsd
+ http://cxf.apache.org/jaxrs
+ http://cxf.apache.org/schemas/jaxrs.xsd">
+		
+	<jaxrs:server address="/" id="connectionService">
+		<jaxrs:serviceBeans>
+			<ref bean="actionHandler"/>
+			<ref bean="random"/>
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+		</jaxrs:providers>
+	</jaxrs:server>
+	
+	<bean class="de.hd.seegarten.pinyou.RuleEngineActionHandlerImpl" id="actionHandler"/>
+	<bean class="de.hd.seegarten.pinyou.Random" id="random"/>
+</beans>

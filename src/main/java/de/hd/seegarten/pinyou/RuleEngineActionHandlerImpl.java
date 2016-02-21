@@ -14,10 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,7 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
-@Path("/api")
 public class RuleEngineActionHandlerImpl {
 	private static final Logger logger = LoggerFactory.getLogger(RuleEngineActionHandlerImpl.class);
 	private KeywordExtraction keywordExtractor;
@@ -37,9 +33,9 @@ public class RuleEngineActionHandlerImpl {
 
 	}
 
-	@POST
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response handleAction(@FormParam("url") String url) throws IOException, JSONException {
+	public Response handleAction(@QueryParam("url") String url) throws IOException, JSONException {
 		List<String> response = keywordExtractor.fetchKeywords(url);
 
 //		List<String> str = new ArrayList<String>();

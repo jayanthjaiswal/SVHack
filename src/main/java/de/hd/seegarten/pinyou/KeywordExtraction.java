@@ -41,7 +41,8 @@ public class KeywordExtraction {
 		if (url.contains("jpg") || url.contains("png") || url.contains("jpeg"))
 			url = "https://www.google.com/searchbyimage?&image_url=" + url;
 		else {
-			String id = url.substring(url.indexOf("?v=") + 3, url.length());
+//			String id = url.substring(url.indexOf("?v=") + 3, url.length());
+			String id = url;
 			logger.debug("id" + id);
 			url = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + id
 					+ "&key=AIzaSyDuzeh9J74iLqa9n1_AgMmQm7RZk5lHD9o";

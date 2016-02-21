@@ -40,7 +40,7 @@ var AUTOPREFIXER_BROWSERS = [
 ];
 
 var DIST = 'dist';
-var WEBAPP = '/Users/d062787/Documents/hackathon/SVHack/src/main/webapp';
+var WEBAPP = '../src/main/webapp';
 
 var dist = function(subpath) {
   return !subpath ? DIST : path.join(DIST, subpath);

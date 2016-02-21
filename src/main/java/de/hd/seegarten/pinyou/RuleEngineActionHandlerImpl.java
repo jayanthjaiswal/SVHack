@@ -8,6 +8,7 @@
 
 package de.hd.seegarten.pinyou;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +25,15 @@ public class RuleEngineActionHandlerImpl {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response handleAction(@FormParam("url") String url) {
+	public Response handleAction(@FormParam("url") String url) throws IOException {
 		List<String> response = new ArrayList<String>();
 		response.add(url);
 		GenericEntity<List<String>> entity = new GenericEntity<List<String>>(response) {
 		};
+		List<String> str = new ArrayList<String>();
+		str.add("cricket");
+		str.add("test");
+		PinterestLogic.getListPins(str);
 		return Response.status(200).entity(entity).build();
 	}
 

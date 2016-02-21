@@ -1,2 +1,11 @@
 target
 virtualenv
+.classpath
+.gitignore
+.gitreview
+.project
+.settings
+.springBeans
+bin
+build
+target

@@ -18,5 +18,8 @@
 		</jaxrs:providers>
 	</jaxrs:server>
 	
-	<bean class="de.hd.seegarten.pinyou.RuleEngineActionHandlerImpl" id="actionHandler"/>
+	<bean class="de.hd.seegarten.pinyou.RuleEngineActionHandlerImpl" id="actionHandler">
+	    <constructor-arg ref="keywordExtractor"></constructor-arg>
+	</bean>
+	<bean class="de.hd.seegarten.pinyou.KeywordExtraction" id="keywordExtractor"/>
 </beans>

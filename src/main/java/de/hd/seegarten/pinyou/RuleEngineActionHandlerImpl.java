@@ -22,21 +22,32 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("/api")
 public class RuleEngineActionHandlerImpl {
+	private static final Logger logger = LoggerFactory.getLogger(RuleEngineActionHandlerImpl.class);
+	private KeywordExtraction keywordExtractor;
+
+	public RuleEngineActionHandlerImpl(KeywordExtraction extractor) {
+		this.keywordExtractor = extractor;
+
+	}
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response handleAction(@FormParam("url") String url) throws IOException, JSONException {
-		List<String> response = new ArrayList<String>();
-		response.add(url);
-		GenericEntity<List<String>> entity = new GenericEntity<List<String>>(response) {
-		};
+		List<String> response = keywordExtractor.fetchKeywords(url);
+
 		List<String> str = new ArrayList<String>();
-		str.add("cricket");
-		str.add("test");
+		str.add("25");
+		str.add("forrest");
+		str.add("gump");
+		str.add("quotes");
+//		List<String> subList= response.subList(0,response.size()/2);
 		String outStr = PinterestLogic.convertToJSON(PinterestLogic.getListPins(str));
 		return Response.status(200).type(APPLICATION_JSON).entity(outStr).build();
 	}

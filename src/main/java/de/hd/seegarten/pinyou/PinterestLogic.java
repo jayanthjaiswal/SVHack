@@ -21,7 +21,7 @@ import java.util.List;
 public class PinterestLogic {
 
     private static String getPinterestRequestUrl(List<String> keywords){
-        String baseurl = "https://api.pinterest.com/v3/search/pins/?page_size=100&query=cricket&access_token=MTQzMTU5NDo1MDI3MTQ1MTQ1NjM4MDIzODU6OTIyMzM3MjAzNjg1NDc3NTgwN3wxNDU2MDI5NDgyOjI1OTIwMDAtLTU4ZWU4YTVmZTc0MzFmMzBlMTU3ZjBmYTBmOWZjOTY1";
+        String baseurl = "https://api.pinterest.com/v3/search/pins/?page_size=100&access_token=MTQzMTU5NDo1MDI3MTQ1MTQ1NjM4MDIzODU6OTIyMzM3MjAzNjg1NDc3NTgwN3wxNDU2MDI5NDgyOjI1OTIwMDAtLTU4ZWU4YTVmZTc0MzFmMzBlMTU3ZjBmYTBmOWZjOTY1";
         String url = baseurl+"&query=";
         for(String s : keywords){
             url+=s+" " ;

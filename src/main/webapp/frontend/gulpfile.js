@@ -146,6 +146,18 @@ gulp.task('copy', function() {
     }));
 });
 
+gulp.task('copy-index', function() {
+  var app = gulp.src([
+    'app/index.html'
+  ], {
+    dot: true
+  }).pipe(gulp.dest(dist()));
+
+  return app.pipe($.size({
+      title: 'copy'
+    }));
+});
+
 // Copy web fonts to dist
 gulp.task('fonts', function() {
   return gulp.src(['app/fonts/**'])
@@ -158,7 +170,7 @@ gulp.task('fonts', function() {
 // Scan your HTML for assets & optimize them
 gulp.task('html', function() {
   return optimizeHtmlTask(
-    ['app/**/*.html', '!app/{elements,test,bower_components}/**/*.html'],
+    ['app/**/*.html', '!app/{test,bower_components}/**/*.html'],
     dist());
 });
 
@@ -275,6 +287,7 @@ gulp.task('default', ['clean'], function(cb) {
     'elements',
     ['images', 'fonts', 'html'],
     'vulcanize', // 'cache-config',
+    'copy-index',
     cb);
 });
 

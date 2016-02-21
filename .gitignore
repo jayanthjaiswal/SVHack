@@ -13,3 +13,4 @@ src/main/webapp/frontend/bower_components
 src/main/webapp/frontend/node_modules
 src/main/webapp/frontend/.tmp
 src/main/webapp/frontend/app/bower_components
+src/main/webapp/frontend/dist

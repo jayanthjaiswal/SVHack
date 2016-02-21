@@ -1,15 +1,18 @@
 package de.hd.seegarten.pinyou;
 
-import de.hd.seegarten.pinyou.Entities.Pins;
+import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.cxf.jaxrs.impl.ResponseImpl;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
-import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +30,19 @@ public class PinterestLogic {
         return url;
     }
 
-    public static void getListPins(List<String> keywords) throws IOException {
+    private static List<String> getPinIds(String respString) throws JSONException {
+        JSONObject obj = new JSONObject(respString.toString());
+        JSONArray obj2 = (JSONArray) obj.get("data");
+        List<String> alist = new ArrayList<>();
+        for (int i1 = 0; i1 < 3; i1++) {
+            String x = (String)((JSONObject)obj2.get(i1)).get("id");
+            alist.add(x);
+        }
+
+        return alist;
+    }
+
+    public static List<String> getListPins(List<String> keywords) throws IOException, JSONException {
         String pinterestSearchUrl = URLEncoder.encode(getPinterestRequestUrl(keywords));
         WebClient target = WebClient.create(pinterestSearchUrl);
 
@@ -37,6 +52,11 @@ public class PinterestLogic {
         StringWriter writer = new StringWriter();
         IOUtils.copy(inputStream, writer, "UTF-8");
         String respString = writer.toString();
-        System.out.println(respString);
+        return getPinIds(respString);
+    }
+
+    public static String convertToJSON(Object obj){
+        Gson g = new Gson();
+        return g.toJson(obj);
     }
 }

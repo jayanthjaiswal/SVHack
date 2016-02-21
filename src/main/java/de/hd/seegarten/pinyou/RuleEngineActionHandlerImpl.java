@@ -8,6 +8,8 @@
 
 package de.hd.seegarten.pinyou;
 
+import org.codehaus.jettison.json.JSONException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +22,14 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+
 @Path("/api")
 public class RuleEngineActionHandlerImpl {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response handleAction(@FormParam("url") String url) throws IOException {
+	public Response handleAction(@FormParam("url") String url) throws IOException, JSONException {
 		List<String> response = new ArrayList<String>();
 		response.add(url);
 		GenericEntity<List<String>> entity = new GenericEntity<List<String>>(response) {
@@ -33,8 +37,8 @@ public class RuleEngineActionHandlerImpl {
 		List<String> str = new ArrayList<String>();
 		str.add("cricket");
 		str.add("test");
-		PinterestLogic.getListPins(str);
-		return Response.status(200).entity(entity).build();
+		String outStr = PinterestLogic.convertToJSON(PinterestLogic.getListPins(str));
+		return Response.status(200).type(APPLICATION_JSON).entity(outStr).build();
 	}
 
 }

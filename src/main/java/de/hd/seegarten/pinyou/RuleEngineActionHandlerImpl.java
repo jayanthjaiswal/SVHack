@@ -42,13 +42,13 @@ public class RuleEngineActionHandlerImpl {
 	public Response handleAction(@FormParam("url") String url) throws IOException, JSONException {
 		List<String> response = keywordExtractor.fetchKeywords(url);
 
-		List<String> str = new ArrayList<String>();
-		str.add("25");
-		str.add("forrest");
-		str.add("gump");
-		str.add("quotes");
-//		List<String> subList= response.subList(0,response.size()/2);
-		String outStr = PinterestLogic.convertToJSON(PinterestLogic.getListPins(str));
+//		List<String> str = new ArrayList<String>();
+//		str.add("25");
+//		str.add("forrest");
+//		str.add("gump");
+//		str.add("quotes");
+		List<String> subList= response.subList(0, Math.min(response.size()/2,5) );
+		String outStr = PinterestLogic.convertToJSON(PinterestLogic.getListPins(subList));
 		return Response.status(200).type(APPLICATION_JSON).entity(outStr).build();
 	}
 

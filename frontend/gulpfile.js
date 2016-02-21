@@ -40,9 +40,14 @@ var AUTOPREFIXER_BROWSERS = [
 ];
 
 var DIST = 'dist';
+var WEBAPP = '/Users/d062787/Documents/hackathon/SVHack/src/main/webapp';
 
 var dist = function(subpath) {
   return !subpath ? DIST : path.join(DIST, subpath);
+};
+
+var webapp = function(subpath) {
+  return !subpath ? WEBAPP : path.join(WEBAPP, subpath);
 };
 
 var styleTask = function(stylesPath, srcs) {
@@ -156,6 +161,18 @@ gulp.task('copy-index', function() {
   return app.pipe($.size({
       title: 'copy'
     }));
+});
+
+gulp.task('copy-webapp', function() {
+  var app = gulp.src([
+    'dist/**'
+  ], {
+    dot: true
+  }).pipe(gulp.dest(webapp()));
+
+  return app.pipe($.size({
+    title: 'copy'
+  }));
 });
 
 // Copy web fonts to dist
@@ -288,6 +305,7 @@ gulp.task('default', ['clean'], function(cb) {
     ['images', 'fonts', 'html'],
     'vulcanize', // 'cache-config',
     'copy-index',
+    'copy-webapp',
     cb);
 });
 

@@ -12,7 +12,6 @@
 	<jaxrs:server address="/" id="connectionService">
 		<jaxrs:serviceBeans>
 			<ref bean="actionHandler"/>
-			<ref bean="random"/>
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
@@ -20,5 +19,4 @@
 	</jaxrs:server>
 	
 	<bean class="de.hd.seegarten.pinyou.RuleEngineActionHandlerImpl" id="actionHandler"/>
-	<bean class="de.hd.seegarten.pinyou.Random" id="random"/>
 </beans>

@@ -81,6 +81,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           events: {
             type: Array,
             value: []
+          },
+          pinList: {
+            type: Array,
+            value: [],
+            notify: true
           }
         },
         computeProgress: function(currentTime, duration) {
@@ -107,6 +112,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         handleCueVideo: function(ev) {
           this.$.googleYouTube.videoId = this.$.videoId.value;
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+              console.log(xhttp.responseText);
+              l = xhttp.responseText;
+              this.pinList = JSON.parse(xhttp.responseText);
+
+              var duck = document.getElementById('cassepieddeservice');
+              var l = this.pinList;
+              console.log(l);
+              var new_html = '';
+              for	(index = 0; index < l.length; index++) {
+                var url = "https://www.pinterest.com/pin/"+l[index]+"/";
+                var line = "<a data-pin-do=embedPin data-pin-width=medium href=" + url + ">" + url + "</a> <br>";
+                new_html += line + '\n';
+              }
+              duck.innerHTML += new_html;
+            }
+          };
+          xhttp.open("GET", "http://localhost:8080/api?url="+this.$.videoId.value, true);
+//          xhttp.setRequestHeader("Access-Control-Allow-Origin","*");
+          xhttp.send();
         }
       });
   </script>

@@ -79,6 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Home</span>
           </a>
 
+
         </paper-menu>
       </paper-scroll-header-panel>
 
@@ -119,9 +120,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
 
               <paper-material elevation="1">
-                <a data-pin-do="embedPin" data-pin-width="medium" href="https://www.pinterest.com/pin/504121752018831071/" ></a>
-                <a data-pin-do="embedPin" data-pin-width="medium" href="https://www.pinterest.com/pin/571675746426020603/"></a>
-                <a data-pin-do="embedPin" data-pin-width="medium" href="https://www.pinterest.com/pin/99360735500167749/"></a>
+
+                <template is="dom-repeat" id="rep" items="{{litem}}">
+                  <div class="horizontal-section">
+                    <p>{{item}}</p>
+                    <a data-pin-do="embedPin" data-pin-width="medium" href="[[repurl(litem)]]"  ></a>
+                  </div>
+                </template>
+
+
+                <!--<a data-pin-do="embedPin" data-pin-width="medium" href="https://www.pinterest.com/pin/504121752018831071/" ></a>-->
+                <!--<a data-pin-do="embedPin" data-pin-width="medium" href="https://www.pinterest.com/pin/571675746426020603/"></a>-->
+                <!--<a data-pin-do="embedPin" data-pin-width="medium" href="https://www.pinterest.com/pin/99360735500167749/"></a>-->
+                <div id="cassepieddeservice">
+
+                </div>
+
               </paper-material>
 
               <paper-material elevation="1">
@@ -169,11 +183,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
             </section>
 
-            <section data-route="books">
-              <paper-material elevation="1">
-                <p>Hello, World!</p>
-              </paper-material>
-            </section>
           </iron-pages>
         </div>
       </paper-scroll-header-panel>
@@ -205,7 +214,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>
+  <script>
+    var rep = document.querySelector('#app');
+    rep.repurl = function (pinId) {
+      var s =  'https://www.pinterest.com/pin/' + pinId;
+      console.log(s);
+      return s;
+    };
+  </script>
+
   <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+  <script>
+    function load_js(d) {
+      var f = d.getElementsByTagName('SCRIPT')[0]
+      p = d.createElement('SCRIPT');
+      p.type = 'text/javascript';
+      p.async = true;
+      p.src = '//assets.pinterest.com/js/pinit.js';
+      f.parentNode.insertBefore(p, f);
+    }
+  </script>
   <!-- endbuild-->
 </body>
 
